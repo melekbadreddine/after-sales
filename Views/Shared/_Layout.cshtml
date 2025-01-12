@@ -1,5 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using ServiceApresVente.Models
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
 @inject SignInManager<Client> SignInManager
 <!DOCTYPE html>
 <html lang="en">
@@ -24,20 +28,6 @@
                     <ul class="navbar-nav ml-auto">
 
                         @*If the user is signed-in display Logout link*@
-                        <li class="nav-item">
-
-                            <a class="nav-link" asp-controller="Students" asp-action="Index">
-
-                                Students
-                            </a>
-                        </li>
-                        <li class="nav-item">
-
-                            <a class="nav-link" asp-controller="Schools" asp-action="Index">
-
-                                Schools
-                            </a>
-                        </li>
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
@@ -109,6 +99,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/CustomScript.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

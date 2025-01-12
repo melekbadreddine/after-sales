@@ -1,71 +1,71 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ServiceApresVente.Models;
-using System.Collections.Generic;
-using System.Security.Claims;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ServiceApresVente.Controllers
 {
     public class ResponsableController : Controller
     {
-        // Liste simulée des responsables
-        private static List<ResponsableSAV> responsables = new List<ResponsableSAV>
-        {
-            new ResponsableSAV { Id = 1, Nom = "Ala", Email = "ala@example.com", MotDePasse = "password123" },
-            new ResponsableSAV { Id = 2, Nom = "Melek", Email = "melek@example.com", MotDePasse = "password123" }
-        };
+        private readonly ApplicationDbContext _context;
 
-        // Afficher la page de connexion
+        public ResponsableController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
-        // Traitement de la connexion
         [HttpPost]
         public async Task<IActionResult> Login(string email, string motDePasse)
         {
-            // Recherche du responsable par email
-            var responsable = responsables.Find(r => r.Email == email);
+            // Vérification des informations du responsable dans la base
+            var responsable = await _context.Responsables
+                .FirstOrDefaultAsync(r => r.Email == email && r.MotDePasse == motDePasse);
 
-            // Vérification des informations d'identification
-            if (responsable != null && responsable.MotDePasse == motDePasse)
+            if (responsable != null)
             {
-                // Création des revendications pour le cookie d'authentification
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, responsable.Nom),
-                    new Claim(ClaimTypes.Email, responsable.Email),
-                    new Claim("ResponsableId", responsable.Id.ToString())
-                };
-
-                // Créer un identité basée sur les revendications
-                var claimsIdentity = new ClaimsIdentity(claims, "Login");
-
-                // Créer un principal avec l'identité
-                var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-
-                // Se connecter en utilisant un cookie
-                await HttpContext.SignInAsync("ResponsableSAV", claimsPrincipal);
-
-                // Rediriger l'utilisateur vers la page d'accueil ou une page protégée
-                return RedirectToAction("Index", "Home");
+                // Transmettre le responsable au Dashboard via un modèle ou ViewBag
+                return RedirectToAction("Dashboard", new { id = responsable.Id });
             }
 
-            // Si la connexion échoue, retourner à la page de connexion avec un message d'erreur
-            ModelState.AddModelError(string.Empty, "Nom d'utilisateur ou mot de passe incorrect.");
+            // Si la connexion échoue
+            ModelState.AddModelError(string.Empty, "Email ou mot de passe incorrect.");
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Dashboard(int id)
+        {
+            // Récupérer le responsable depuis la base
+            var responsable = await _context.Responsables.FindAsync(id);
+            if (responsable == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            // Passer les informations à la vue
+            ViewBag.Responsable = responsable;
+            return View();
+        }
+
+
+
+
+
         // Déconnexion de l'utilisateur
         [HttpPost]
-        public async Task<IActionResult> Logout()
+        public IActionResult Logout()
         {
-            await HttpContext.SignOutAsync("ResponsableSAV");
+            // Redirige simplement vers la page de connexion
             return RedirectToAction("Login");
         }
+
     }
+
 }

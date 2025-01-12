@@ -1,3 +1,4 @@
+using after_sales.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -6,42 +7,37 @@ using ServiceApresVenteApp.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Ajouter le service de session
+builder.Services.AddDistributedMemoryCache();  // Utilise la mémoire pour stocker la session
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);  // Définir la durée de vie de la session
+    options.Cookie.HttpOnly = true;  // Empêche l'accès à la session via JavaScript
+    options.Cookie.IsEssential = true;  // Rendre le cookie essentiel
+});
+
+// Ajout des services nécessaires à la base de données
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultDBConnection")));
 builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
 
+// Ajout de la gestion de l'identité pour le Client
 builder.Services.AddIdentity<Client, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
-    // Default Password settings.
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
 });
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                   .AddCookie(options =>
-                   {
-                       options.LoginPath = "/Account/Login";  // Définir le chemin pour le login Client
-                       options.Cookie.Name = "ClientAuthCookie";
-                   });
+// Ajouter l'authentification pour les responsables
 
-// Configuration des utilisateurs pour ResponsableSAV (utilisation d'un manager personnalisé)
-builder.Services.AddScoped<IResponsableSAV, ResponsableSAV>();
+builder.Services.AddAuthentication("ResponsableSAV");
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = "ResponsableSAV"; // Le nom de votre cookie d'authentification
-})
-.AddCookie("ResponsableSAV", options =>
-{
-    options.LoginPath = "/Responsable/Login"; // Redirection en cas de non-authentification
-    options.LogoutPath = "/Responsable/Logout"; // Redirection après déconnexion
-});
 
+// Ajouter les contrôleurs avec les vues
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -56,8 +52,11 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseRouting();
+// Utiliser la session
+app.UseSession();  // Active l'utilisation des sessions
 
+app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

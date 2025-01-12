@@ -1,0 +1,141 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+
+@{
+    var responsable = ViewBag.Responsable;
+}
+
+@* Inclure les références CSS et JS de Bootstrap pour une mise en page réactive *@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <!-- Sidebar Section -->
+        <div class="col-md-3 col-lg-2">
+            <div class="list-group">
+                <h4 class="text-center mb-3">Menu</h4>
+                <a href="#" class="list-group-item list-group-item-action">Dashboard</a>
+                <a href="#" class="list-group-item list-group-item-action">Clients</a>
+                <a href="#" class="list-group-item list-group-item-action">Reclamations</a>
+                <a href="#" class="list-group-item list-group-item-action">Paramètres</a>
+                <a href="#" class="list-group-item list-group-item-action">Déconnexion</a>
+            </div>
+        </div>
+
+        <!-- Main Content Section -->
+        <div class="col-md-9 col-lg-10">
+            <div class="row mb-3">
+                <div class="col-12">
+                    <h2>Dashboard</h2>
+                    <p>Bienvenue sur votre tableau de bord. Vous trouverez ici un résumé de l'état actuel du service après-vente.</p>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="row">
+                <div class="col-sm-6 col-md-3">
+                    <div class="card text-white bg-primary mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Clients Actifs</h5>
+                            <p class="card-text">120</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-3">
+                    <div class="card text-white bg-success mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Reclamations Résolues</h5>
+                            <p class="card-text">75</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-3">
+                    <div class="card text-white bg-warning mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Reclamations en Cours</h5>
+                            <p class="card-text">45</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-3">
+                    <div class="card text-white bg-danger mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Problèmes Critiques</h5>
+                            <p class="card-text">5</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activities Section -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            Activités Récentes
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Client "Ala" a créé une nouvelle réclamation pour une réparation de produit.</li>
+                                <li class="list-group-item">Melek a marqué une réclamation comme résolue.</li>
+                                <li class="list-group-item">Un nouveau produit a été ajouté au stock pour réparation.</li>
+                                <li class="list-group-item">Un problème critique a été signalé sur un appareil de marque X.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart Section (Example of a simple chart) -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            Statistiques des Réclamations
+                        </div>
+                        <div class="card-body">
+                            <canvas id="reclamationChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Inclure Chart.js pour les graphiques *@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('reclamationChart').getContext('2d');
+    var reclamationChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [{
+                label: 'Réclamations Résolues',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }, {
+                label: 'Réclamations en Cours',
+                data: [4, 8, 6, 1, 3, 4],
+                backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                borderColor: 'rgba(255, 159, 64, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
