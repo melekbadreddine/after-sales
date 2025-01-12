@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ServiceApresVente.Models;
@@ -9,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultDBConnection")));
 builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
+
 builder.Services.AddIdentity<Client, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
@@ -19,6 +21,27 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
 });
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                   .AddCookie(options =>
+                   {
+                       options.LoginPath = "/Account/Login";  // Définir le chemin pour le login Client
+                       options.Cookie.Name = "ClientAuthCookie";
+                   });
+
+// Configuration des utilisateurs pour ResponsableSAV (utilisation d'un manager personnalisé)
+builder.Services.AddScoped<IResponsableSAV, ResponsableSAV>();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = "ResponsableSAV"; // Le nom de votre cookie d'authentification
+})
+.AddCookie("ResponsableSAV", options =>
+{
+    options.LoginPath = "/Responsable/Login"; // Redirection en cas de non-authentification
+    options.LogoutPath = "/Responsable/Logout"; // Redirection après déconnexion
+});
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

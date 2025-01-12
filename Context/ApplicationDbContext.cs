@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ServiceApresVente.Models;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : IdentityDbContext<Client>
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
     {
     }
     public DbSet<Client> Clients { get; set; }
@@ -13,6 +15,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Intervention> Interventions { get; set; }
     public DbSet<PieceDeRechange> Pieces { get; set; }
     public DbSet<ResponsableSAV> Responsables { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
