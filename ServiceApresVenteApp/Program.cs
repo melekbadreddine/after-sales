@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ServiceApresVente.Models;
 using ServiceApresVenteApp.Repositories;
+using ServiceApresVenteApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,12 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
 });
+
+// Ajout d'IAccountService avant Build()
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IArticleService, ArticleService>();
+
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -29,7 +36,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

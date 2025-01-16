@@ -31,7 +31,7 @@ namespace ServiceApresVenteApp.Controllers
                 // Handle scenario where userId is null
                 return View();
             }
-            
+
             var user = await userManager.FindByIdAsync(userId);
             if (user != null && user.Articles != null)
             {
@@ -43,9 +43,9 @@ namespace ServiceApresVenteApp.Controllers
         }
         public async Task<IActionResult> Reclamer(int id)
         {
-            return RedirectToAction("CreateWithArticleId", "Reclamations", new {ArticleId = id});
+            return RedirectToAction("CreateWithArticleId", "Reclamations", new { ArticleId = id });
         }
-        
+
 
     }
 }
