@@ -4,50 +4,50 @@
 }
 
 <div class="form-container">
-    <h2 class="text-center text-primary">User Registration</h2>
+    <h2 class="text-center text-primary">Sign Up</h2>
     <form method="post">
         <div class="form-group">
-            <label asp-for="FirstName" class="form-label">First Name</label>
-            <input asp-for="FirstName" class="form-control" placeholder="E.g., John" />
+            <label asp-for="FirstName" class="form-label">Prénom</label>
+            <input asp-for="FirstName" class="form-control" placeholder="Entrer votre prénom" />
             <span asp-validation-for="FirstName" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="LastName" class="form-label">Last Name</label>
-            <input asp-for="LastName" class="form-control" placeholder="E.g., Doe" />
+            <label asp-for="LastName" class="form-label">Nom de la Famille</label>
+            <input asp-for="LastName" class="form-control" placeholder="Entrer votre nom" />
             <span asp-validation-for="LastName" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Email" class="form-label">Email Address</label>
-            <input asp-for="Email" class="form-control" placeholder="E.g., john.doe@example.com" />
+            <label asp-for="Email" class="form-label">Adresse Email</label>
+            <input asp-for="Email" class="form-control" placeholder="Entrer votre Adresse Email" />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Password" class="form-label">Password</label>
-            <input asp-for="Password" class="form-control" type="password" placeholder="Choose a strong password" />
+            <label asp-for="Password" class="form-label">Mot de Passe</label>
+            <input asp-for="Password" class="form-control" type="password" placeholder="Entrer votre nom Mot de Passe" />
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="ConfirmPassword" class="form-label">Confirm Password</label>
-            <input asp-for="ConfirmPassword" class="form-control" type="password" placeholder="Re-enter your password" />
+            <label asp-for="ConfirmPassword" class="form-label">Confirmer votre Mot de Passe</label>
+            <input asp-for="ConfirmPassword" class="form-control" type="password" placeholder="Entrer votre Mot de Passe" />
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Adress" class="form-label">Address</label>
-            <input asp-for="Adress" class="form-control" placeholder="E.g., 123 Main St, Springfield" />
+            <label asp-for="Adress" class="form-label">Addresse</label>
+            <input asp-for="Adress" class="form-control" placeholder="Entrer votre Adresse" />
             <span asp-validation-for="Adress" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="TelNumber" class="form-label">Phone Number</label>
-            <input asp-for="TelNumber" class="form-control" placeholder="E.g., +1 234 567 8901" />
+            <label asp-for="TelNumber" class="form-label">Numéro de Téléphone</label>
+            <input asp-for="TelNumber" class="form-control" placeholder="Entrer votre numéro" />
             <span asp-validation-for="TelNumber" class="text-danger"></span>
         </div>
 
-        <button type="submit" class="btn btn-primary w-100">Register</button>
+        <button type="submit" class="btn btn-primary w-100">Sign Up</button>
     </form>
 </div>

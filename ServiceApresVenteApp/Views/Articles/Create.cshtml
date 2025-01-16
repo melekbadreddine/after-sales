@@ -4,49 +4,51 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Créer un article</h1>
 
-<h4>Article</h4>
+<h4>Informations sur l'article</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Nom" class="control-label"></label>
+                <label asp-for="Nom" class="control-label">Nom de l'article</label>
                 <input asp-for="Nom" class="form-control" />
                 <span asp-validation-for="Nom" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Reference" class="control-label"></label>
+                <label asp-for="Reference" class="control-label">Référence de l'article</label>
                 <input asp-for="Reference" class="form-control" />
                 <span asp-validation-for="Reference" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DateAchat" class="control-label"></label>
+                <label asp-for="DateAchat" class="control-label">Date d'achat</label>
                 <input asp-for="DateAchat" class="form-control" />
                 <span asp-validation-for="DateAchat" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DureeGarantie" class="control-label"></label>
+                <label asp-for="DureeGarantie" class="control-label">Durée de garantie (en mois)</label>
                 <input asp-for="DureeGarantie" class="form-control" />
                 <span asp-validation-for="DureeGarantie" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
+                <label asp-for="UserId" class="control-label">Utilisateur</label>
                 <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Créer" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Retour à la liste</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
