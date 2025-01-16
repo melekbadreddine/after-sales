@@ -1,54 +1,67 @@
 ﻿@model ServiceApresVente.Models.Article
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Modifier un article";
 }
 
-<h1>Modifier un article</h1>
+<div class="container mt-4">
+    <h1 class="mb-4">Modifier un article</h1>
 
-<h4>Article</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Nom" class="control-label"></label>
-                <input asp-for="Nom" class="form-control" />
-                <span asp-validation-for="Nom" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Reference" class="control-label"></label>
-                <input asp-for="Reference" class="form-control" />
-                <span asp-validation-for="Reference" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateAchat" class="control-label"></label>
-                <input asp-for="DateAchat" class="form-control" />
-                <span asp-validation-for="DateAchat" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DureeGarantie" class="control-label"></label>
-                <input asp-for="DureeGarantie" class="form-control" />
-                <span asp-validation-for="DureeGarantie" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
-                <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+    <h4>Article</h4>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="form-group">
+                    <label asp-for="Nom" class="control-label"></label>
+                    <input asp-for="Nom" class="form-control" />
+                    <span asp-validation-for="Nom" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Reference" class="control-label"></label>
+                    <input asp-for="Reference" class="form-control" />
+                    <span asp-validation-for="Reference" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="DateAchat" class="control-label"></label>
+                    <input asp-for="DateAchat" class="form-control" type="date" />
+                    <span asp-validation-for="DateAchat" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="DureeGarantie" class="control-label"></label>
+                    <input asp-for="DureeGarantie" class="form-control" />
+                    <span asp-validation-for="DureeGarantie" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="UserId" class="control-label"></label>
+                    <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId">
+                        <option value="">Sélectionner un utilisateur</option>
+                    </select>
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-4">
+                    <input type="submit" value="Enregistrer" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a asp-action="Index" class="btn btn-secondary">Retourner à la liste</a>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Retourner à la liste</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

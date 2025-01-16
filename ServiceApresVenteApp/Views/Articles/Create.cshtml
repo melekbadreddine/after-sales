@@ -1,50 +1,66 @@
 ﻿@model ServiceApresVente.Models.Article
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Créer un article";
 }
 
-<h1>Créer un article</h1>
+<div class="container mt-4">
+    <h1 class="mb-4">Créer un nouvel article</h1>
 
-<h4>Informations sur l'article</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Nom" class="control-label">Nom de l'article</label>
-                <input asp-for="Nom" class="form-control" />
-                <span asp-validation-for="Nom" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Reference" class="control-label">Référence de l'article</label>
-                <input asp-for="Reference" class="form-control" />
-                <span asp-validation-for="Reference" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateAchat" class="control-label">Date d'achat</label>
-                <input asp-for="DateAchat" class="form-control" />
-                <span asp-validation-for="DateAchat" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DureeGarantie" class="control-label">Durée de garantie (en mois)</label>
-                <input asp-for="DureeGarantie" class="form-control" />
-                <span asp-validation-for="DureeGarantie" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label">Utilisateur</label>
-                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Créer" class="btn btn-primary" />
-            </div>
-        </form>
+    <h4>Informations sur l'article</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <!-- Nom de l'article -->
+                <div class="form-group">
+                    <label asp-for="Nom" class="control-label">Nom de l'article</label>
+                    <input asp-for="Nom" class="form-control" placeholder="Entrez le nom de l'article" />
+                    <span asp-validation-for="Nom" class="text-danger"></span>
+                </div>
+
+                <!-- Référence de l'article -->
+                <div class="form-group">
+                    <label asp-for="Reference" class="control-label">Référence de l'article</label>
+                    <input asp-for="Reference" class="form-control" placeholder="Entrez la référence de l'article" />
+                    <span asp-validation-for="Reference" class="text-danger"></span>
+                </div>
+
+                <!-- Date d'achat -->
+                <div class="form-group">
+                    <label asp-for="DateAchat" class="control-label">Date d'achat</label>
+                    <input asp-for="DateAchat" class="form-control" type="date" />
+                    <span asp-validation-for="DateAchat" class="text-danger"></span>
+                </div>
+
+                <!-- Durée de garantie -->
+                <div class="form-group">
+                    <label asp-for="DureeGarantie" class="control-label">Durée de garantie (en mois)</label>
+                    <input asp-for="DureeGarantie" class="form-control" type="number" min="1" placeholder="Entrez la durée de garantie" />
+                    <span asp-validation-for="DureeGarantie" class="text-danger"></span>
+                </div>
+
+                <!-- Utilisateur -->
+                <div class="form-group">
+                    <label asp-for="UserId" class="control-label">Utilisateur</label>
+                    <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId">
+                        <option value="">Sélectionner un utilisateur</option>
+                    </select>
+                </div>
+
+                <!-- Bouton de soumission -->
+                <div class="form-group">
+                    <input type="submit" value="Créer" class="btn btn-success btn-block" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Retour à la liste</a>
+    <div>
+        <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
+    </div>
 </div>
 
 @section Scripts {
