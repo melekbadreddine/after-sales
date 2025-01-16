@@ -4,70 +4,58 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-@if (User.IsInRole("Client"))
-{
-<a asp-action="Create">Create New</a>
-}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="mb-0">Liste des Réclamations</h1>
+        @if (User.IsInRole("Client"))
+        {
+            <a asp-action="Create" class="btn btn-primary">Créer une nouvelle réclamation</a>
+        }
+    </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Reference</th>
-            <th>Article</th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Statut)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateReclamation)
-            </th>
-             @*<th>
-                 @Html.DisplayNameFor(model => model.Article)
-            </th>*@
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-                <td>@item.Article?.Reference</td>
-                <td>@item.Article?.Nom</td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Statut)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateReclamation)
-            </td>
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.ArticleId)
-            </td>*@
-            <td>
-                    @if (User.IsInRole("Client"))
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    }
-                    else
-                    {
-                        @if(item.Statut==ServiceApresVente.Models.StatutReclamation.EnAttente){
-                            <a asp-action="EditForResponsable" asp-route-id="@item.Id">Edit</a>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Référence</th>
+                <th>Article</th>
+                <th>Description</th>
+                <th>Statut</th>
+                <th>Date de réclamation</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Article?.Reference</td>
+                    <td>@item.Article?.Nom</td>
+                    <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Statut)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DateReclamation)</td>
+                    <td>
+                        @if (User.IsInRole("Client"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Modifier</a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Détails</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Supprimer</a>
                         }
-                        else{
-                            <a asp-action="GetInterventionByReclamationId" asp-route-id="@item.Id">Intervensions</a>
+                        else
+                        {
+                            @if (item.Statut == ServiceApresVente.Models.StatutReclamation.EnAttente)
+                            {
+                                <a asp-action="EditForResponsable" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Modifier</a>
+                            }
+                            else
+                            {
+                                <a asp-action="GetInterventionByReclamationId" asp-route-id="@item.Id" class="btn btn-success btn-sm">Interventions</a>
+                            }
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Détails</a>
                         }
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                    }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
-                
-            </td>
-        </tr>
-}
-    </tbody>
-</table>

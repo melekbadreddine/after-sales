@@ -4,47 +4,54 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h3>Créer un Article</h3>
+        </div>
+        <div class="card-body">
+            <form asp-action="CreateArticle">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-<h4>Article</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="CreateArticle">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Nom" class="control-label"></label>
-                <input asp-for="Nom" class="form-control" />
-                <span asp-validation-for="Nom" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Reference" class="control-label"></label>
-                <input asp-for="Reference" class="form-control" />
-                <span asp-validation-for="Reference" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateAchat" class="control-label"></label>
-                <input asp-for="DateAchat" class="form-control" />
-                <span asp-validation-for="DateAchat" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DureeGarantie" class="control-label"></label>
-                <input asp-for="DureeGarantie" class="form-control" />
-                <span asp-validation-for="DureeGarantie" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="form-group">
+                    <label asp-for="Nom" class="form-label">Nom de l'Article</label>
+                    <input asp-for="Nom" class="form-control" />
+                    <span asp-validation-for="Nom" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Reference" class="form-label">Référence</label>
+                    <input asp-for="Reference" class="form-control" />
+                    <span asp-validation-for="Reference" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="DateAchat" class="form-label">Date d'Achat</label>
+                    <input asp-for="DateAchat" class="form-control" type="date" />
+                    <span asp-validation-for="DateAchat" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="DureeGarantie" class="form-label">Durée de Garantie</label>
+                    <input asp-for="DureeGarantie" class="form-control" type="number" />
+                    <span asp-validation-for="DureeGarantie" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="UserId" class="form-label">Utilisateur</label>
+                    <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+                </div>
+
+                <div class="form-group mt-3">
+                    <input type="submit" value="Créer" class="btn btn-success" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div class="mt-3">
+        <a asp-action="Index" class="btn btn-link">Retour à la liste</a>
+    </div>
 </div>
 
 @section Scripts {

@@ -1,57 +1,67 @@
 ﻿@model ServiceApresVente.Models.Intervention
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Intervention";
 }
 
-<h1>Create</h1>
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h3>Create New Intervention</h3>
+        </div>
+        <div class="card-body">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
 
-<h4>Intervention</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ReclamationId" class="control-label"></label>
-                <select asp-for="ReclamationId" class ="form-control" asp-items="ViewBag.ReclamationId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Technicien" class="control-label"></label>
-                <input asp-for="Technicien" class="form-control" />
-                <span asp-validation-for="Technicien" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateIntervention" class="control-label"></label>
-                <input asp-for="DateIntervention" class="form-control" />
-                <span asp-validation-for="DateIntervention" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="EstSousGarantie" /> @Html.DisplayNameFor(model => model.EstSousGarantie)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="CoutMainOeuvre" class="control-label"></label>
-                <input asp-for="CoutMainOeuvre" class="form-control" />
-                <span asp-validation-for="CoutMainOeuvre" class="text-danger"></span>
-            </div>
-            @* <div class="form-group"> *@
-            @*     <label asp-for="CoutTotal" class="control-label"></label> *@
-            @*     <input asp-for="CoutTotal" class="form-control" /> *@
-            @*     <span asp-validation-for="CoutTotal" class="text-danger"></span> *@
-            @* </div> *@
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="form-group">
+                    <label asp-for="ReclamationId" class="font-weight-bold">Reclamation</label>
+                    <select asp-for="ReclamationId" class="form-control">
+                        <option value="">-- Select Reclamation --</option>
+                        @foreach (var item in ViewBag.ReclamationId)
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group mt-3">
+                    <label asp-for="Technicien" class="font-weight-bold">Technician</label>
+                    <input asp-for="Technicien" class="form-control" placeholder="Enter technician's name" />
+                    <span asp-validation-for="Technicien" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mt-3">
+                    <label asp-for="DateIntervention" class="font-weight-bold">Date of Intervention</label>
+                    <input asp-for="DateIntervention" class="form-control" type="date" />
+                    <span asp-validation-for="DateIntervention" class="text-danger"></span>
+                </div>
+
+                <div class="form-group form-check mt-3">
+                    <input class="form-check-input" type="checkbox" asp-for="EstSousGarantie" />
+                    <label class="form-check-label" for="EstSousGarantie">
+                        Is under warranty
+                    </label>
+                </div>
+
+                <div class="form-group mt-3">
+                    <label asp-for="CoutMainOeuvre" class="font-weight-bold">Labor Cost</label>
+                    <input asp-for="CoutMainOeuvre" class="form-control" type="number" placeholder="Enter labor cost" />
+                    <span asp-validation-for="CoutMainOeuvre" class="text-danger"></span>
+                </div>
+
+                <div class="form-group text-center mt-4">
+                    <button type="submit" class="btn btn-success btn-lg">Create Intervention</button>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer text-center">
+            <a class="btn btn-link" asp-action="Index">Back to List</a>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

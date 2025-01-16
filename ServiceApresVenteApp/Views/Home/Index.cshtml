@@ -1,12 +1,36 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using ServiceApresVente.Models
 @{
-    ViewData["Title"] = "Home Page";
-
+    ViewData["Title"] = "Accueil - Service Après Vente";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+<div class="container-fluid bg-primary text-white p-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <h1 class="display-4 mb-4">Bienvenue sur notre Service Après Vente</h1>
+            <p class="lead mb-5">Nous nous engageons à offrir un service rapide et de qualité pour la réparation et l'entretien de vos produits.</p>
+            <a href="#services" class="btn btn-light btn-lg">Découvrez nos services</a>
+        </div>
+    </div>
+</div>
 
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container my-5" id="services">
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <h3>Réparation rapide</h3>
+            <p>Nos experts réparent vos produits avec efficacité et dans les plus brefs délais.</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <h3>Support client dédié</h3>
+            <p>Notre équipe est disponible pour répondre à toutes vos questions et résoudre vos problèmes.</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <h3>Produits de qualité</h3>
+            <p>Nous utilisons des pièces de rechange de haute qualité pour assurer la durabilité de vos appareils.</p>
+        </div>
+    </div>
+</div>
+
+<div class="text-center bg-dark text-white py-4">
+    <p>Besoin d'aide ? <a href="/contact" class="text-light">Contactez-nous ici</a></p>
 </div>

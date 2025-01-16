@@ -4,49 +4,41 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h3>Page d'Accueil</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Nom)</th>
+                        <th>@Html.DisplayNameFor(model => model.Reference)</th>
+                        <th>@Html.DisplayNameFor(model => model.DateAchat)</th>
+                        <th>@Html.DisplayNameFor(model => model.DureeGarantie)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Nom)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Reference)</td>
+                            <td>@Html.DisplayFor(modelItem => item.DateAchat)</td>
+                            <td>@Html.DisplayFor(modelItem => item.DureeGarantie)</td>
+                            <td>
+                                <a asp-action="Reclamer" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Nouvelle Réclamation</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nom)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Reference)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateAchat)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DureeGarantie)
-            </th>
-
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nom)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Reference)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateAchat)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DureeGarantie)
-                </td>
-
-                <td>
-                    <a asp-action="Reclamer" asp-route-id="@item.Id">Reclamer</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="mt-3">
+        <a class="btn btn-link" asp-action="Index">Retour à la liste</a>
+    </div>
+</div>

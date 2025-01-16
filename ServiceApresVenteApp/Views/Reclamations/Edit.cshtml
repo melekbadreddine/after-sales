@@ -4,41 +4,53 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="mb-0">Modifier la Réclamation</h1>
+    </div>
 
-<h4>Reclamation</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
+    <h4>Informations de la réclamation</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-            <div class="form-group">
-                <label asp-for="DateReclamation" class="control-label"></label>
-                <input asp-for="DateReclamation" class="form-control" />
-                <span asp-validation-for="DateReclamation" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ArticleId" class="control-label">Reference article</label>
-                <select asp-for="ArticleId" class="form-control" asp-items="ViewBag.ArticleId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label">Description</label>
+                    <input asp-for="Description" class="form-control" placeholder="Entrez une description..." />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="DateReclamation" class="control-label">Date de Réclamation</label>
+                    <input asp-for="DateReclamation" class="form-control" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    <span asp-validation-for="DateReclamation" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ArticleId" class="control-label">Référence Article</label>
+                    <select asp-for="ArticleId" class="form-control" asp-items="ViewBag.ArticleId">
+                        <option value="">Sélectionner un article</option>
+                    </select>
+                </div>
+
+                <div class="form-group mt-3">
+                    <input type="submit" value="Enregistrer" class="btn btn-primary btn-lg" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a asp-action="Index" class="btn btn-secondary btn-lg">Retour à la liste</a>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

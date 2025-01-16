@@ -15,6 +15,7 @@ namespace ServiceApresVenteApp.Services
             _signInManager = signInManager;
         }
 
+        // Enregistrer un utilisateur et retourner un IdentityResult
         public async Task<IdentityResult> RegisterUserAsync(RegisterViewModel model)
         {
             var user = new User
@@ -26,29 +27,41 @@ namespace ServiceApresVenteApp.Services
                 Adress = model.Adress,
                 TelNumber = model.TelNumber,
             };
-            return await _userManager.CreateAsync(user, model.Password);
+
+            var result = await _userManager.CreateAsync(user, model.Password);
+            return result; // Retourne le résultat de l'enregistrement
         }
 
+        // Assigner un rôle en fonction de l'ID utilisateur
         public async Task AssignRoleAsync(User user)
         {
-            var role = user.Id == 1 ? "Responsable" : "Client";
+            var role = user.Id == 1 ? "Responsable" : "Client"; // Id == 1 est responsable, sinon client
             await _userManager.AddToRoleAsync(user, role);
         }
 
+        // Connexion de l'utilisateur
         public async Task<bool> SignInUserAsync(LoginViewModel model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
             return result.Succeeded;
         }
 
+        // Déconnexion de l'utilisateur
         public async Task SignOutUserAsync()
         {
             await _signInManager.SignOutAsync();
         }
 
+        // Trouver un utilisateur par son email
         public async Task<User?> GetUserByEmailAsync(string email)
         {
             return await _userManager.FindByEmailAsync(email);
+        }
+
+        // Vérifier si un utilisateur appartient à un rôle
+        public async Task<bool> IsUserInRoleAsync(User user, string role)
+        {
+            return await _userManager.IsInRoleAsync(user, role);
         }
     }
 }

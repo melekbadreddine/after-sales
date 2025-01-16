@@ -1,57 +1,50 @@
 ﻿@model ServiceApresVente.Models.Intervention
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete Intervention";
 }
 
-<h1>Delete</h1>
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-danger text-white">
+            <h3>Confirm Deletion</h3>
+        </div>
+        <div class="card-body">
+            <h4>Are you sure you want to delete this intervention?</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3 font-weight-bold">Technician:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Technicien)</dd>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Intervention</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Technicien)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Technicien)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateIntervention)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateIntervention)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EstSousGarantie)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EstSousGarantie)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CoutMainOeuvre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CoutMainOeuvre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CoutTotal)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CoutTotal)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Reclamation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Reclamation.Id)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+                <dt class="col-sm-3 font-weight-bold">Date of Intervention:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.DateIntervention)</dd>
+
+                <dt class="col-sm-3 font-weight-bold">Under Warranty:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.EstSousGarantie)</dd>
+
+                <dt class="col-sm-3 font-weight-bold">Labor Cost:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.CoutMainOeuvre)</dd>
+
+                <dt class="col-sm-3 font-weight-bold">Total Cost:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.CoutTotal)</dd>
+
+                <dt class="col-sm-3 font-weight-bold">Reclamation ID:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Reclamation.Id)</dd>
+            </dl>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <div class="text-center">
+                    <button type="submit" class="btn btn-danger btn-lg">Delete Intervention</button>
+                    <a class="btn btn-link btn-lg" asp-action="Index">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

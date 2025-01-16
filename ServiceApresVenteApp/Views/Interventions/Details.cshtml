@@ -1,86 +1,76 @@
 ﻿@model ServiceApresVente.Models.Intervention
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Intervention Details";
 }
 
-<h1>Details</h1>
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-info text-white">
+            <h3>Intervention Details</h3>
+        </div>
+        <div class="card-body">
+            <h4 class="font-weight-bold">Intervention Information</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3 font-weight-bold">Technician:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Technicien)</dd>
 
-<div>
-    <h4>Intervention</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Technicien)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Technicien)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DateIntervention)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DateIntervention)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.EstSousGarantie)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.EstSousGarantie)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CoutMainOeuvre)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CoutMainOeuvre)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CoutTotal)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CoutTotal)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Reclamation)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Reclamation.Id)
-        </dd>
-    </dl>
-</div>
+                <dt class="col-sm-3 font-weight-bold">Date of Intervention:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.DateIntervention)</dd>
 
-<!-- Display the list of pieces with quantities and prices -->
-@if (ViewBag.PieceDetails != null && ((List<(string PieceName, int Quantite, double PrixUnitaire, double PrixTotal)>)ViewBag.PieceDetails).Any())
-{
-    <h4>Pièces Utilisées</h4>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Nom de la Pièce</th>
-                <th>Quantité</th>
-                <th>Prix Unitaire</th>
-                <th>Prix Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var piece in (List<(string PieceName, int Quantite, double PrixUnitaire, double PrixTotal)>)ViewBag.PieceDetails)
+                <dt class="col-sm-3 font-weight-bold">Under Warranty:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.EstSousGarantie)</dd>
+
+                <dt class="col-sm-3 font-weight-bold">Labor Cost:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.CoutMainOeuvre)</dd>
+
+                <dt class="col-sm-3 font-weight-bold">Total Cost:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.CoutTotal)</dd>
+
+                <dt class="col-sm-3 font-weight-bold">Reclamation ID:</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Reclamation.Id)</dd>
+            </dl>
+
+            @if (ViewBag.PieceDetails != null && ((List<(string PieceName, int Quantite, double PrixUnitaire, double PrixTotal)>)ViewBag.PieceDetails).Any())
             {
-                <tr>
-                    <td>@piece.PieceName</td>
-                    <td>@piece.Quantite</td>
-                    <td>@piece.PrixUnitaire</td>
-                    <td>@piece.PrixTotal</td>
-                </tr>
+                <h4 class="mt-4 font-weight-bold">Used Parts</h4>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr class="table-primary">
+                            <th>Part Name</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var piece in (List<(string PieceName, int Quantite, double PrixUnitaire, double PrixTotal)>)ViewBag.PieceDetails)
+                        {
+                            <tr>
+                                <td>@piece.PieceName</td>
+                                <td>@piece.Quantite</td>
+                                <td>@piece.PrixUnitaire</td>
+                                <td>@piece.PrixTotal</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>Aucune pièce utilisée pour cette intervention.</p>
-}
-
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Modifier</a> |
-    <a asp-action="Index">Retour à la liste</a>
+            else
+            {
+                <p>No parts used for this intervention.</p>
+            }
+        </div>
+        <div class="card-footer text-center">
+            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+            <a class="btn btn-secondary" asp-action="Index">Back to List</a>
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

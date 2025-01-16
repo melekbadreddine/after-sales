@@ -1,6 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using ServiceApresVente.Models
-@using System.Security.Claims
 @inject SignInManager<User> SignInManager
 
 <!DOCTYPE html>
@@ -8,54 +7,68 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Service Après Vente</title>
+    <title>@ViewData["Title"] - ElectroShop</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMV6N2KpqVPKIqiuYI2MfjN4Qq8BWmQWj9kDJbE" crossorigin="anonymous">
     <!-- Custom Styles -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/UserWebApp.styles.css" asp-append-version="true" />
     <style>
-        body {
+        /* Flexbox layout for full height */
+        html, body {
+            height: 100%; /* Ensures the full height of the viewport is used */
+            margin: 0;
             font-family: 'Roboto', sans-serif;
             background-color: #f8f9fa;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
         }
+
+        /* Main content area: takes all available space except the header and footer */
+        .main-content {
+            flex: 1;
+        }
+
         .navbar {
             background-color: #343a40 !important;
         }
+
         .navbar-brand, .nav-link {
             color: #ffffff !important;
         }
+
         .navbar-brand {
             font-weight: bold;
         }
+
         .nav-link {
             margin-right: 15px;
             display: flex;
             align-items: center;
         }
-        .nav-link i {
-            margin-right: 8px;
-        }
-        .nav-link.btn {
-            color: #fff !important;
-            background-color: #dc3545 !important;
-        }
+
+            .nav-link i {
+                margin-right: 8px;
+            }
+
+            .nav-link.btn {
+                color: #fff !important;
+                background-color: #dc3545 !important;
+            }
+
         footer {
             background-color: #343a40;
             color: #ffffff;
             padding: 10px 0;
-            margin-top: auto;
+            margin-top: auto; /* Ensures footer stays at the bottom */
+            text-align: center;
         }
-        footer a {
-            color: #ffc107;
-        }
+
+            footer a {
+                color: #ffc107;
+            }
     </style>
 </head>
 <body>
@@ -63,14 +76,13 @@
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Account" asp-action="Login">
-                    <i class="fas fa-tools"></i> Service Après Vente
+                    <i class="fas fa-tools"></i> ElectroShop
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-
                         @if (SignInManager.IsSignedIn(User) && User.IsInRole("Client"))
                         {
                             <li class="nav-item">
@@ -84,7 +96,6 @@
                                 </a>
                             </li>
                         }
-
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
@@ -108,7 +119,6 @@
                                 </a>
                             </li>
                         }
-
                         @if (SignInManager.IsSignedIn(User) && User.IsInRole("Responsable"))
                         {
                             <li class="nav-item">
@@ -137,17 +147,14 @@
             </div>
         </nav>
     </header>
-    <div class="container mt-4">
+
+    <div class="container mt-4 main-content">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="text-center">
-        <div class="container">
-            &copy; 2024 - UserWebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Politique de Confidentialité</a>
-        </div>
-    </footer>
+
     <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

@@ -24,8 +24,8 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 
 // Ajout d'IAccountService avant Build()
-builder.Services.AddScoped<IAccountService, AccountService>();
-builder.Services.AddScoped<IArticleService, ArticleService>();
+//builder.Services.AddScoped<IAccountService, AccountService>();
+//builder.Services.AddScoped<IArticleService, ArticleService>();
 //builder.Services.AddScoped<IInterventionRepository, InterventionRepository>();
 //builder.Services.AddScoped<IInterventionService, InterventionService>();
 

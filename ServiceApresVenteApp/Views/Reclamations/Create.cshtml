@@ -3,46 +3,60 @@
 @{
     ViewData["Title"] = "Create";
 }
-<h1>Create</h1>
 
-<h4>Reclamation</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="mb-0">Créer une Réclamation</h1>
+    </div>
+
+    <h4>Informations de la réclamation</h4>
+    <hr />
+
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label">Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label asp-for="DateReclamation" class="control-label"></label>
-                <input asp-for="DateReclamation" class="form-control" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
-                <span asp-validation-for="DateReclamation" class="text-danger"></span>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="DateReclamation" class="control-label">Date de Réclamation</label>
+                    <input asp-for="DateReclamation" class="form-control" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    <span asp-validation-for="DateReclamation" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="ArticleId" class="control-label">Reference article</label>
-                <select asp-for="ArticleId" class="form-control" asp-items="ViewBag.ArticleId" id="articleDropdown">
-                    <option value="">--Selectionner un article--</option>
-                </select>
-            </div>
-            <div class="form-group">
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ArticleId" class="control-label">Référence Article</label>
+            <select asp-for="ArticleId" class="form-control" asp-items="ViewBag.ArticleId" id="articleDropdown">
+                <option value="">--Sélectionner un article--</option>
+            </select>
+        </div>
+
+        <div class="form-group">
             <label>Article</label>
             <div id="articleName" class="form-control" style="background-color: #f8f9fa;"> </div>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+
+        <div class="form-group mt-4">
+            <input type="submit" value="Créer" class="btn btn-primary btn-lg" />
+        </div>
+    </form>
+
+    <div class="mt-3">
+        <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
