@@ -4,28 +4,32 @@
 }
 
 <div class="form-container">
-    <h2>User Login</h2>
+    <h2 class="text-center text-primary">User Login</h2>
     @{
         var returnUrl = Context.Request.Query["ReturnUrl"];
     }
     <form asp-route-returnurl="@returnUrl" method="post">
-        <div asp-validation-summary="All" class="text-danger"></div>
+        <!-- Champ pour l'adresse e-mail -->
         <div class="form-group">
-            <label asp-for="Email" class="form-label"></label>
-            <input asp-for="Email" class="form-control" />
+            <label asp-for="Email" class="form-label">Email Address</label>
+            <input asp-for="Email" class="form-control" placeholder="Enter your email address (e.g., john.doe@example.com)" />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
+
+        <!-- Champ pour le mot de passe -->
         <div class="form-group">
-            <label asp-for="Password" class="form-label"></label>
-            <input asp-for="Password" class="form-control" type="password" />
+            <label asp-for="Password" class="form-label">Password</label>
+            <input asp-for="Password" class="form-control" type="password" placeholder="Enter your password" />
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
+
+        <!-- Case à cocher pour 'Se souvenir de moi' -->
         <div class="form-group form-check">
             <input asp-for="RememberMe" class="form-check-input" />
-            <label asp-for="RememberMe" class="form-check-label">
-                @Html.DisplayNameFor(m => m.RememberMe)
-            </label>
+            <label asp-for="RememberMe" class="form-check-label">Remember Me</label>
         </div>
+
+        <!-- Bouton de soumission -->
         <button type="submit" class="btn btn-primary w-100">Login</button>
     </form>
 </div>
